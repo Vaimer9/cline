@@ -3,22 +3,24 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Implementation of getch() from ncurses.h just without all the ncurses shenanigans */
 int getch(void) {
-      int c, res = 0;
+    int c, res = 0;
 
-      struct termios org_opts, new_opts;
+    struct termios org_opts, new_opts;
 
-      res=tcgetattr(STDIN_FILENO, &org_opts);
+    res=tcgetattr(STDIN_FILENO, &org_opts);
 
-      new_opts.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
-      tcsetattr(STDIN_FILENO, TCSANOW, &new_opts);
+    new_opts.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_opts);
 
-      c = getchar();
-      res = tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);
+    c = getchar();
+    res = tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);
 
-      return(c);
+    return(c);
 }
 
 /* I have to implement kbhit() because glibc is stoopid */
@@ -52,7 +54,7 @@ int kbhit(void)
 void start_selection(selection_config *config)
 {
     char *prompt = config->selection_prompt;
-    char buf = ' ';
+    char *buf = " ";
 
     /* Print all of the options just for debugging for now*/
     for (int i = 0; i < 10; i++ )
@@ -61,17 +63,18 @@ void start_selection(selection_config *config)
     }
 
     restart:
-
-    strncat(prompt, &buf, 1);
+    snprintf(prompt, sizeof(char), "%s%s", prompt, buf);
     printf("\n\r%s", prompt);
 
     while (1) {
         if (kbhit()) {
-            buf = (char)getch();
+            buf[0] = (char)getch();
+            buf[1] = '\0';
             goto restart;
         }
     }
-    printf("oh wow\n");
+
+    printf("out of loop\n");
 }
 
 selection_config *new_config(int max, selection_value* values, char* prompt)
