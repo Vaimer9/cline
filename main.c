@@ -32,7 +32,7 @@ int main()
         "Select the given options: "
     );
 
-    startSelection(config);
+    start_selection(config);
 
     return 0;
 }

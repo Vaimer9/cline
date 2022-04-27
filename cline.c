@@ -49,7 +49,7 @@ int kbhit(void)
     return 0;
 }
 
-void startSelection(selection_config *config)
+void start_selection(selection_config *config)
 {
     char *prompt = config->selection_prompt;
 

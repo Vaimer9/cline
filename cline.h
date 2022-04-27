@@ -16,5 +16,5 @@ typedef struct
     char *selection_prompt;
 } selection_config;
 
-void startSelection(selection_config *config);
+void start_selection(selection_config *config);
 selection_config *new_config(int max, selection_value* values, char* prompt);
