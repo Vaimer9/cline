@@ -117,24 +117,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cline
+# Target rules for targets named main
 
 # Build rule for target.
-cline: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cline
-.PHONY : cline
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-cline/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cline.dir/build.make CMakeFiles/cline.dir/build
-.PHONY : cline/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+cline.o: cline.c.o
+.PHONY : cline.o
+
+# target to build an object file
+cline.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/cline.c.o
+.PHONY : cline.c.o
+
+cline.i: cline.c.i
+.PHONY : cline.i
+
+# target to preprocess a source file
+cline.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/cline.c.i
+.PHONY : cline.c.i
+
+cline.s: cline.c.s
+.PHONY : cline.s
+
+# target to generate assembly for a file
+cline.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/cline.c.s
+.PHONY : cline.c.s
 
 main.o: main.c.o
 .PHONY : main.o
 
 # target to build an object file
 main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cline.dir/build.make CMakeFiles/cline.dir/main.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -142,7 +166,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cline.dir/build.make CMakeFiles/cline.dir/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -150,7 +174,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cline.dir/build.make CMakeFiles/cline.dir/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -161,7 +185,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... cline"
+	@echo "... main"
+	@echo "... cline.o"
+	@echo "... cline.i"
+	@echo "... cline.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

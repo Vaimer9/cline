@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/cline.dir/main.c.o -o cline 
+/usr/bin/cc CMakeFiles/cline.dir/main.c.o CMakeFiles/cline.dir/cline.c.o -o cline 

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/v9/coding/clang/cline/cline.c" "CMakeFiles/cline.dir/cline.c.o" "gcc" "CMakeFiles/cline.dir/cline.c.o.d"
   "/home/v9/coding/clang/cline/main.c" "CMakeFiles/cline.dir/main.c.o" "gcc" "CMakeFiles/cline.dir/main.c.o.d"
   )
 

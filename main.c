@@ -1,9 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "cline.h"
 
-int main(int argc, char **argv)
+#define findsize(VAL, TYPE) sizeof(VAL)/sizeof(TYPE) 
+
+int main()
 {
-    if (argc > 1) {
-        printf("Hello %s\n", argv[1]);
-    }
+    selection_value values[] = {
+        { "Hi" },
+        { "How are you today" },
+        { "Fine" },
+    };
+    selection_config *config = new_config(
+        findsize(values, selection_value),
+        values,
+        "Select the bakas: \n"
+    );
+
+    startSelection(config);
+
+    return 0;
 }
