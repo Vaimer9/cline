@@ -1,3 +1,0 @@
-/home/v9/coding/clang/cline/build/CMakeFiles/main.dir
-/home/v9/coding/clang/cline/build/CMakeFiles/edit_cache.dir
-/home/v9/coding/clang/cline/build/CMakeFiles/rebuild_cache.dir
