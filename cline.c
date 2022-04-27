@@ -51,10 +51,17 @@ int kbhit(void)
     return 0;
 }
 
+void concat_c(char *str, char c)
+{
+    for (; *str; str++);
+    *str++ = c;
+    *str++ = 0;
+}
+
 void start_selection(selection_config *config)
 {
-    char *prompt = config->selection_prompt;
-    char *buf = " ";
+    char *prompt = malloc(sizeof(config->selection_prompt) + 2);
+    char buf = ' ';
 
     /* Print all of the options just for debugging for now*/
     for (int i = 0; i < 10; i++ )
@@ -63,13 +70,13 @@ void start_selection(selection_config *config)
     }
 
     restart:
-    snprintf(prompt, sizeof(char), "%s%s", prompt, buf);
-    printf("\n\r%s", prompt);
+    strncpy(prompt, config->selection_prompt, strlen(config->selection_prompt));
+    concat_c(prompt, buf);
+    printf("\r%s", prompt);
 
     while (1) {
         if (kbhit()) {
-            buf[0] = (char)getch();
-            buf[1] = '\0';
+            buf = (char)getch();
             goto restart;
         }
     }
