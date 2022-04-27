@@ -10,11 +10,26 @@ int main()
         { "Hi" },
         { "How are you today" },
         { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "Fine" },
+        { "but better Fine" },
+        { "but better Fine" },
+        { "but better Fine" },
+        { "but better Fine" },
+        { "but better Fine" },
     };
     selection_config *config = new_config(
         findsize(values, selection_value),
         values,
-        "Select the bakas: \n"
+        "Select the given options: "
     );
 
     startSelection(config);

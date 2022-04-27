@@ -3,24 +3,24 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-
-/* I have to implement kbhit because glibc is stoopid */
+/* Implementation of getch() from ncurses.h just without all the ncurses shenanigans */
 int getch(void) {
-      int c=0;
+      int c, res = 0;
 
       struct termios org_opts, new_opts;
-      int res=0;
-          //-----  store old settings -----------
+
       res=tcgetattr(STDIN_FILENO, &org_opts);
-          //---- set new terminal parms --------
+
       new_opts.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
       tcsetattr(STDIN_FILENO, TCSANOW, &new_opts);
-      c=getchar();
-          //------  restore old settings ---------
-      res=tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);
+
+      c = getchar();
+      res = tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);
+
       return(c);
 }
 
+/* I have to implement kbhit() because glibc is stoopid */
 int kbhit(void)
 {
     struct termios oldt, newt;
@@ -53,7 +53,7 @@ void startSelection(selection_config *config)
     char input;
 
     /* Print all of the options*/
-    for (int i = 0; i < config->total ; i++ )
+    for (int i = 0; i < 10; i++ )
     {
         printf("%d. %s\n", i+1, config->values[i].name);
     }
@@ -62,7 +62,7 @@ void startSelection(selection_config *config)
     while (1) {
         if (kbhit()) {
             input = (char)getch();
-            printf("You pressed: %c\n", input);
+            printf("\nYou pressed: %c\n", input);
             break;
         }
     }
