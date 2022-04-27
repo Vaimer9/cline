@@ -52,6 +52,7 @@ int kbhit(void)
 void start_selection(selection_config *config)
 {
     char *prompt = config->selection_prompt;
+    char buf = ' ';
 
     /* Print all of the options just for debugging for now*/
     for (int i = 0; i < 10; i++ )
@@ -60,13 +61,13 @@ void start_selection(selection_config *config)
     }
 
     restart:
-    printf("\r%s", prompt);
+
+    strncat(prompt, &buf, 1);
+    printf("\n\r%s", prompt);
 
     while (1) {
         if (kbhit()) {
-            char input = (char)getch();
-            strncat(prompt, &input, 1);
-
+            buf = (char)getch();
             goto restart;
         }
     }
