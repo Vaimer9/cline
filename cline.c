@@ -2,6 +2,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
 
 /* Implementation of getch() from ncurses.h just without all the ncurses shenanigans */
 int getch(void) {
@@ -50,20 +51,23 @@ int kbhit(void)
 
 void startSelection(selection_config *config)
 {
-    char input;
+    char *prompt = config->selection_prompt;
 
-    /* Print all of the options*/
+    /* Print all of the options just for debugging for now*/
     for (int i = 0; i < 10; i++ )
     {
         printf("%d. %s\n", i+1, config->values[i].name);
     }
 
-    printf("%s", config->selection_prompt);
+    restart:
+    printf("\r%s", prompt);
+
     while (1) {
         if (kbhit()) {
-            input = (char)getch();
-            printf("\nYou pressed: %c\n", input);
-            break;
+            char input = (char)getch();
+            strncat(prompt, &input, 1);
+
+            goto restart;
         }
     }
     printf("oh wow\n");
@@ -78,4 +82,3 @@ selection_config *new_config(int max, selection_value* values, char* prompt)
 
     return new;
 }
-
