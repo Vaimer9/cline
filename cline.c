@@ -60,8 +60,11 @@ void concat_c(char *str, char c)
 
 void start_selection(selection_config *config)
 {
+    /* Initialize the reactive prompt */
     char *prompt = malloc(sizeof(config->selection_prompt) + 2);
-    char buf = ' ';
+
+    /* single char buffer for input */
+    char buf;
 
     /* Print all of the options just for debugging for now*/
     for (int i = 0; i < 10; i++ )
@@ -69,19 +72,29 @@ void start_selection(selection_config *config)
         printf("%d. %s\n", i+1, config->values[i].name);
     }
 
-    restart:
+    /* Copy the contents of selection_prompt for initial prompt */
     strncpy(prompt, config->selection_prompt, strlen(config->selection_prompt));
+
+    restart:
+
+    /* join the single char to the prompt */
     concat_c(prompt, buf);
     printf("\r%s", prompt);
 
     while (1) {
+
+        /* if a keystroke is detected */
         if (kbhit()) {
-            buf = (char)getch();
-            goto restart;
+
+            /* if the keystroke is enter, do nothing else add the input to the prompt */
+            if((buf = (char)getch()) == 10)
+                continue;
+            else
+                goto restart;
         }
     }
 
-    printf("out of loop\n");
+    free(prompt);
 }
 
 selection_config *new_config(int max, selection_value* values, char* prompt)
